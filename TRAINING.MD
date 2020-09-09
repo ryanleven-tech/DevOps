@@ -7,14 +7,6 @@
 * [Quick DevOps Article](https://opensource.com/article/19/5/values-devops-mindset)
 * [PluralSight - Understanding DevOps](https://app.pluralsight.com/paths/skill/understanding-devops)
 
-## Guidewire Training
-
-* [PolicyCenter 10.0 - New Features](https://ilearning.seertechsolutions.com/lmt/clmsCourseDetails.prMain?in_sessionId=32A9448J39240349&in_learner_id=54307131&in_offeringId=77907035&in_from_module=CLMSBROWSECOURSES.PRMAIN&in_filter=%26in_catnav%3DCourses%2520by%2520Product%257C676%253BPolicyCenter%257C704%253B%26in_categoryId%3D704%26in_rows%3D50%26in_pageTitle%3DBrowse%20Courses&in_filter_2=)
-* [PolicyCenter 10.0 - Configuration](https://ilearning.seertechsolutions.com/lmt/clmsCourseDetails.prMain?in_sessionId=32A9448J39240349&in_learner_id=54307131&in_offeringId=78904146&in_from_module=CLMSBROWSECOURSES.PRMAIN&in_filter=%26in_catnav%3DCourses%2520by%2520Product%257C676%253BPolicyCenter%257C704%253B%26in_categoryId%3D704%26in_rows%3D50%26in_pageTitle%3DBrowse%20Courses&in_filter_2=)
-* [PolicyCenter 10.0 Introduction (Personal/Commercial)](https://ilearning.seertechsolutions.com/lmt/clmsCourseDetails.prMain?in_sessionId=32A9448J39240349&in_learner_id=54307131&in_offeringId=78904220&in_from_module=CLMSBROWSECOURSES.PRMAIN&in_filter=%26in_catnav%3DCourses%2520by%2520Product%257C676%253BPolicyCenter%257C704%253B%26in_categoryId%3D704%26in_rows%3D50%26in_pageTitle%3DBrowse%20Courses&in_filter_2=)
-* [PolicyCenter 10.0 Rating Configuration](https://ilearning.seertechsolutions.com/lmt/clmsCourseDetails.prMain?in_sessionId=32A9448J39240349&in_learner_id=54307131&in_offeringId=78904221&in_from_module=CLMSBROWSECOURSES.PRMAIN&in_filter=%26in_catnav%3DCourses%2520by%2520Product%257C676%253BPolicyCenter%257C704%253B%26in_categoryId%3D704%26in_rows%3D50%26in_pageTitle%3DBrowse%20Courses&in_filter_2=)
-* [PolicyCenter 10.0 Rating Introduction](https://ilearning.seertechsolutions.com/lmt/clmsCourseDetails.prMain?in_sessionId=32A9448J39240349&in_learner_id=54307131&in_offeringId=78904224&in_from_module=CLMSBROWSECOURSES.PRMAIN&in_filter=%26in_catnav%3DCourses%2520by%2520Product%257C676%253BPolicyCenter%257C704%253B%26in_categoryId%3D704%26in_rows%3D50%26in_pageTitle%3DBrowse%20Courses&in_filter_2=)
-
 ## Unit Tests/TDD Concepts
 
 * [TDD Learning Curriculum](https://nest.nwie.net/content/articles/unit-testing-tdd-curriculum.html)
