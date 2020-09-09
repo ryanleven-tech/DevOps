@@ -1,0 +1,115 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'API Gateway Resource'
+
+Parameters:
+# ------- Configuration Params -------- #
+  pLambdaFunctionName:
+    Description: Arn of the lambda to trigger
+    Type: String
+  pRestApiName:
+    Description: Name of the Rest API to create
+    Type: String
+
+# ------- Required Tags -------- #
+  pDisbursementCode:
+    Description: Customer Disbursement Code
+    AllowedPattern: "([A-Za-z0-9]{9})"
+    Type: String
+  pResourceOwner:
+    Description: Your NWIE Short Name
+    AllowedPattern: "(^[A-Za-z0-9]*)"
+    Type: String
+  pAPRMID:
+    Description: APRM ID
+    Type: String
+  pResourceName:
+    Description: What is the name of this resource ?
+    Type: String
+  pSecurityException:
+    Description: Does a Security Exception Need Granted ?
+    Type: String
+    Default: "false"
+  pEnvironment:
+    Description: Deployment Environment
+    Type: String
+
+Resources:
+  rApiGatewayRestApi:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: !Ref pRestApiName
+        EndpointConfiguration:
+          Types:
+            - PRIVATE
+        Policy:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Principal: "*"
+              Action: execute-api:Invoke
+              Resource: "*"
+
+  rApiGatewayResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref rApiGatewayRestApi
+      ParentId: !GetAtt rApiGatewayRestApi.RootResourceId
+      PathPart: "{proxy+}"
+
+  rApiGatewayANYMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      RestApiId: !Ref rApiGatewayRestApi
+      ResourceId: !Ref rApiGatewayResource
+      HttpMethod: ANY
+      MethodResponses:
+        - StatusCode: '200'
+          ResponseModels:
+            application/json: Empty
+      AuthorizationType: NONE
+      ApiKeyRequired: false
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${pLambdaFunctionName}/invocations
+        IntegrationResponses:
+          - StatusCode: '200'
+
+  rApiGatewayDeployment:
+    DependsOn: rApiGatewayANYMethod
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId: !Ref rApiGatewayRestApi
+      Description: "Deployment"
+      StageName: "DummyStage"
+
+  rApiGatewayStage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      StageName: Api
+      Description: Main Api Stage
+      RestApiId: !Ref rApiGatewayRestApi
+      DeploymentId: !Ref rApiGatewayDeployment
+      Variables:
+        Stack: Api
+
+  rLambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:invokeFunction
+      FunctionName: !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${pLambdaFunctionName}
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${rApiGatewayRestApi}/*/*/*
+
+  #rTagApiGatewayStage (custom resource to apply tags to rApiGatewayStage since it cannot be done in CF)
+
+Outputs:
+  oApiGatewayRestApiId:
+    Value: !Ref rApiGatewayRestApi
+    Description: ID of the Rest API created
+  oApiGatewayStageId:
+    Value: !Ref rApiGatewayStage
+    Description: ID of the stage created in the Rest API
+  oApiGatewayDeploymentId:
+    Value: !Ref rApiGatewayDeployment
+    Description: ID of the deployment created in the Rest API
